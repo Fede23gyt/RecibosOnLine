@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+/* Creo las rutas para todos los metodos para el controlador Liquidaciones (Nombre-Controlador)
+Route::resource('recibos', 'RecibosController');*/
 
-Route::get('/home', 'HomeController@index')->name('home');
+route::get('/recibos','RecibosController@index');
+
+
