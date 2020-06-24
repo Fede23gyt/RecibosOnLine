@@ -1,3 +1,4 @@
+<!--
 @extends('layouts.app')
 
 @section('content')
@@ -19,5 +20,13 @@
             </div>
         </div>
     </div>
+</div>
+@endsection
+-->
+@extends('themes.lte.layout')
+
+@section('contenido')
+<div class='container'>
+  Estas logueado
 </div>
 @endsection
