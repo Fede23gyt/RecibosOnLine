@@ -12,8 +12,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-color: rgb(90, 87, 87);
+                color: #daa542;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -21,7 +21,7 @@
             }
 
             .full-height {
-                height: 100vh;
+                height: 95vh;
             }
 
             .flex-center {
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #daa542;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -59,7 +59,7 @@
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 301px;
             }
         </style>
     </head>
@@ -70,10 +70,10 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Ingresar</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}">Registrarse</a>
                         @endif
                     @endauth
                 </div>
@@ -81,19 +81,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    SI.G.RE.SU.
                 </div>
             </div>
         </div>
+
+        <footer class=class="top-right links"><strong>Colegio José Manuel Estrada 2020 - </strong>Todos los derechos reservados.
+
+        </footer>
     </body>
 </html>
