@@ -17,7 +17,7 @@
         <li class="nav-header">OPCIONES</li>
 
         <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="{{ route('recibos') }}" class="nav-link">
             <i class="nav-icon far fa-image"></i>
             <p>
               Recibos de Sueldo
@@ -25,13 +25,21 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link">
+          <a href="{{ route('home') }}" class="nav-link">
             <i class="nav-icon fas fa-edit"></i>
             <p>
               Mis Datos
             </p>
           </a>
         </li>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('logout') }}">Cerrar Sesion
+          <!--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>-->
+        </a>
+      </li>
         </ul>
 
 

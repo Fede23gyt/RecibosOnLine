@@ -22,6 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 /* Creo las rutas para todos los metodos para el controlador Liquidaciones (Nombre-Controlador)
 Route::resource('recibos', 'RecibosController');*/
 
-route::get('/recibos','RecibosController@index');
+route::get('/recibos','RecibosController@index')->name('recibos');
 
 

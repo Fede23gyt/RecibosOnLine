@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset("assets/lte/dist/css/adminlte.min.css")}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
     <!-- iCheck -->
@@ -31,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/summernote/summernote-bs4.css")}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -96,5 +98,8 @@
     <script src="{{asset('assets/lte/dist/js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('assets/lte/dist/js/demo.js')}}"></script>
+
+
+
   </body>
 </html>
