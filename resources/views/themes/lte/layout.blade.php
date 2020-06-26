@@ -16,14 +16,12 @@
     <link rel="stylesheet" href="{{ asset("assets/lte/dist/css/adminlte.min.css")}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/jqvmap/jqvmap.min.css")}}">
-
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset("assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}">
     <!-- Daterange picker -->
@@ -33,21 +31,20 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
   </head>
 
   <body class="hold-transition sidebar-mini layout-fixed">
+
     <!-- Site wrapper -->
     <div class="wrapper">
       <!--inicio header-->
       @include("themes/lte/header")
-      <!--fin header-->
+
       <!--inicio aside-->
       @include("themes/lte/aside")
-      <!--fin aside-->
 
       <!-- contenido de la pagina -->
       <div class="content-wrapper">
@@ -56,11 +53,12 @@
             @yield('contenido')
         </section>
 
-      </div><!-- /.content-wrapper -->
+      </div>
+      <!-- /.content-wrapper -->
 
       <!-- inicio footer -->
       @include("themes/lte/footer")
-      <!-- fin footer -->
+
     </div>
 
 

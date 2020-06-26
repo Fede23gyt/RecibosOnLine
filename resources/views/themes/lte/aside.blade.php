@@ -18,26 +18,20 @@
 
         <li class="nav-item">
           <a href="{{ route('recibos') }}" class="nav-link">
-            <i class="nav-icon far fa-image"></i>
-            <p>
-              Recibos de Sueldo
-            </p>
+            <i class="fas fa-folder-open"></i>
+            &nbsp;<p>Recibos de Sueldo</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{ route('home') }}" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Mis Datos
-            </p>
+            <i class="fas fa-user-edit"></i>&nbsp;<p>Mis Datos</p>
           </a>
         </li>
       </li>
       <li class="nav-item">
-        <a href="{{ route('logout') }}">Cerrar Sesion
-          <!--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>-->
+        <a href="{{ route('logout') }}" class="nav-link">
+          <i class="fas fa-sign-out-alt"></i>
+          &nbsp;<p>Salir</p>
         </a>
       </li>
         </ul>

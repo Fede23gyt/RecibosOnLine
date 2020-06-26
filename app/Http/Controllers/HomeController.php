@@ -6,13 +6,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
+        /* Lo que hará será comprobar que hayas iniciado sesión correctamente,
+        y al detectar que no has iniciado sesión de redigirá al login*/
         $this->middleware('auth');
     }
 
