@@ -13,4 +13,11 @@ class RecibosController extends Controller
       $recibos = Recibos::all();
       return view('recibos.index')->with('recibos',$recibos);
     }
+
+    public function descargar($id)
+    {
+      $datos = Recibos::find($id);
+      $pdf = \PDF::loadView('recibos.descargapdf',compact('datos'));
+      return $pdf->download('ReciboSueldo.pdf');
+    }
 }

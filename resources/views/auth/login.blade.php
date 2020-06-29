@@ -1,20 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="background-color: #555555" >
+
+
+<!-- Main Content -->
+<div class="container" style="background-color: #ffffff" >
+
   <div class="login-box">
-    <div class="login-logo">
-      <b>SI.G.RE.SU</b>
+
+    <div class="row align-items-center text-center">
+        <div class="col-sm-4">
+        <img src=" {{ asset('Logo.png') }}">
+        </div>
+        <div class="col-sm-8 text-center">
+
+          <div class="row"><h4 style="color:#a12a2a">COLEGIO</h4></div>
+          <div class="row"><h4 style="color:#a12a2a">JOSE MANUEL ESTRADA</h4></div>
+        </div>
+
+
     </div>
-    <div>
-    <img class="profile-user-img img-fluid img-circle" src="storage/LogoWP.png">
-    </div>
-    <!-- /.login-logo -->
+
     <div class="card">
       <div class="card-body login-card-body">
         <form method="POST" action="{{ route('login') }}" >
           @csrf
-          <div class="input-group mb-3">
+          <div class="input-group mb-83">
             <input type="email" class="form-control @error('email') is-invalid @enderror"
               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email" id="email" >
               @error('email')
@@ -66,6 +77,7 @@
   </div>
   <!-- /.login-box -->
 </div>
+
 @endsection
 
 
