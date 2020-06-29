@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('recibos', 'RecibosController');*/
 
 Route::get('/recibos','RecibosController@index')->name('recibos');
+Route::get('/misrecibos','RecibosController@misrecibos')->name('misrecibos');
 Route::get('/recibos/descargar-recibo/{id}', 'RecibosController@descargar')->name('descargar');
 
 

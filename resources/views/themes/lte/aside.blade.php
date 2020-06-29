@@ -16,24 +16,40 @@
 
         <li class="nav-header">OPCIONES</li>
 
-        <li class="nav-item">
-          <a href="{{ route('recibos') }}" class="nav-link">
-            <i class="fas fa-folder-open"></i>
-            &nbsp;<p>Recibos de Sueldo</p>
-          </a>
+          @php
+            $usuario=Auth::user()->dni;
+          @endphp
+
+          @if($usuario == '27059357') <!-- usuario admin -->
+            <li class="nav-item">
+              <a href="{{ route('recibos') }}" class="nav-link">
+                <i class="fas fa-folder-open"></i>
+                &nbsp;<p>Recibos de Sueldo</p>
+              </a>
+            </li>
+          @else
+            <li class="nav-item">
+              <a href="{{ route('misrecibos') }}" class="nav-link">
+                  <i class="fas fa-folder-open"></i>
+                  &nbsp;<p>Mis Recibos</p>
+              </a>
+            </li>
+          @endif
+
+          <li class="nav-item">
+            <a href="{{ route('home') }}" class="nav-link">
+              <i class="fas fa-user-edit"></i>&nbsp;<p>Mis Datos</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('logout') }}" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+              &nbsp;<p>Salir</p>
+            </a>
+          </li>
+
         </li>
-        <li class="nav-item">
-          <a href="{{ route('home') }}" class="nav-link">
-            <i class="fas fa-user-edit"></i>&nbsp;<p>Mis Datos</p>
-          </a>
-        </li>
-      </li>
-      <li class="nav-item">
-        <a href="{{ route('logout') }}" class="nav-link">
-          <i class="fas fa-sign-out-alt"></i>
-          &nbsp;<p>Salir</p>
-        </a>
-      </li>
         </ul>
 
 

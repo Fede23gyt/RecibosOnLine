@@ -24,7 +24,7 @@
                 </tr>
               </thead>
               <tbody>
-              @foreach ($recibos as $recibos)
+              @foreach ($recibos_usu as $recibos)
               <tr>
                 <td>{!! $recibos->nombre !!}</td>
                 <td align="center">{!! $recibos->dni !!}</td>
