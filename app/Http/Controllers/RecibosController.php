@@ -20,6 +20,7 @@ class RecibosController extends Controller
 
     public function descargar($id)
     {
+      //dd($id);
       $datos = Recibos::find($id);
       $pdf = \PDF::loadView('recibos.descargapdf',compact('datos'));
       return $pdf->download('ReciboSueldo.pdf');

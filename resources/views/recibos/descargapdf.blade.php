@@ -1,20 +1,34 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
+  <head>
         <meta charset="UTF-8">
         <title>Document</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset("assets/lte/plugins/fontawesome-free/css/all.min.css" )}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset("assets/lte/dist/css/adminlte.min.css")}}">
-
   </head>
   <body>
-
-  <div class="row">
-
+  <!-- aca asigno las variables para mostrar -->
+  @php
+    $ayno = $datos->nombre;
+    $mes  = $datos->mes_liq;
+    $ano  = $datos->ano_liq;
+    $impo = $datos->liqu;
+  @endphp
+  <div class="row">sdfsfsddfsdfsdf
+    $ayno
+    $mes
+    $ano
+    $impo
   </div>
   <div class="row">
 
