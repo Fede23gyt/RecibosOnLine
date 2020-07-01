@@ -22,8 +22,9 @@ class RecibosController extends Controller
     {
       //dd($id);
       $datos = Recibos::find($id);
+      //return view('recibos.descargapdf')->with('datos', $datos);
       $pdf = \PDF::loadView('recibos.descargapdf',compact('datos'));
-      return $pdf->download('ReciboSueldo.pdf');
+      return $pdf->stream('ReciboSueldo.pdf',compact('datos'));
     }
 
     public function misrecibos()
