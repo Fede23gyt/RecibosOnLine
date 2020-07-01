@@ -1,106 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
+<?php
+  $ayno = $datos->nombre;
+  $cuil = $datos->cuil;
+  $cargo = $datos->cargo;
+  $ingreso = $datos->fehca_ingreso;
+  $mes = $datos->mes_liq;
+  $ano = $datos->ano_liq;
+?>
 
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="es">
   <head>
-        <meta charset="UTF-8">
-        <title>Document</title>
+    <meta charset="UTF-8">
+    <title>Recibo</title>
+    <style>
+        table,td {
+                  border: 1px solid black;
+        }
+    </style>
   </head>
   <body>
-  <!-- aca asigno las variables para mostrar -->
-  @php
-    $ayno = $datos->nombre;
-    $mes  = $datos->mes_liq;
-    $ano  = $datos->ano_liq;
-    $impo = $datos->liqu;
-  @endphp
-  <div class="row">sdfsfsddfsdfsdf
-    $ayno
-    $mes
-    $ano
-    $impo
-  </div>
-  <div class="row">
-
-  </div>
-
-  <div class="row">
-  </div>
-
-
-
-
-
-      <div class="card">
-
-        <div class="card-body p-0">
-             <table class="table table-sm">
-                      <thead>
-                        <tr>
-                          <th style="width: 10px">#</th>
-                          <th>Task</th>
-                          <th>Progress</th>
-                          <th style="width: 40px">Label</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1.</td>
-                          <td>Update software</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-danger">55%</span></td>
-                        </tr>
-                        <tr>
-                          <td>2.</td>
-                          <td>Clean database</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-warning" style="width: 70%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-warning">70%</span></td>
-                        </tr>
-                        <tr>
-                          <td>3.</td>
-                          <td>Cron job running</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar bg-primary" style="width: 30%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-primary">30%</span></td>
-                        </tr>
-                        <tr>
-                          <td>4.</td>
-                          <td>Fix and squish bugs</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar bg-success" style="width: 90%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-success">90%</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-        </div>
-    <!-- /.card-body -->
-    </div>
-    <!-- Bootstrap 4 -->
-    <script src="{{asset('assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  </body>
-
+      <table border="1" cellspacing="0" width="90%">
+        <tbody>
+          <tr align="center" >
+            <td colspan="6" style="font-size: 16px">Colegio "José Manuel Estrada" (L-21)</td>
+          </tr>
+          <tr align="center" border="1">
+            <td colspan="6">España 2251 - (4400) - Salta CUIT 30-54773365-3</td>
+          </tr>
+          <tr align="center">
+            <td colspan="6">Recibo de Sueldo</td>
+          </tr>
+          <tr>
+            <td width="20%" aling="left">Apellido y Nombre</td>
+            <td colspan="2" aling="left" style="width: 50%; font-weight:bold">{{$ayno}}</td>
+            <td aling="left" style="width: 12%">N° CUIL</td>
+            <td aling="center" colspan="2" style="width:18%;font-weight:bold ">{{$cuil}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="1" cellspacing="0" width="90%">
+        <tbody>
+          <tr>
+            <td aling="left" style="width: 15%; align:left">Cargo</td>
+            <td aling="left" style="width: 25%; font-weight:bold; align:left">{{$cargo}}</td>
+            <td aling="left" style="width: 20%">Fecha Ingreso</td>
+            <td aling="left" style="width: 15%; font-weight:bold; align:center">{{$ingreso}}</td>
+            <td aling="left" style="width: 10%">Periodo</td>
+            <td aling="left" style="width: 15%; font-weight:bold; align:center">{{$mes}} - {{$ano}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="5"></td>
+          </tr>
+          <tr>
+            <td colspan="4">Concepto</td>
+            <td>Remuneración</td>
+            <td>Descuentos</td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="4">Subtotal</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5">Total Neto</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Son</td>
+            <td colspan="5"></td>
+          </tr>
+        </tbody>
+      </table>
+     </body>
 </html>
+
