@@ -1985,6 +1985,8 @@ return array(
     'Monolog\\ResettableInterface' => $vendorDir . '/monolog/monolog/src/Monolog/ResettableInterface.php',
     'Monolog\\SignalHandler' => $vendorDir . '/monolog/monolog/src/Monolog/SignalHandler.php',
     'Monolog\\Utils' => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php',
+    'NumeroALetras' => $vendorDir . '/arielcr/numero-a-letras/src/NumeroALetras.php',
+    'NumerosEnLetras' => $vendorDir . '/villca/numeros-en-letras/src/NumerosEnLetras.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Inspector' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Inspector.php',

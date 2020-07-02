@@ -7,9 +7,7 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title"><b>Listado de Liquidaciones de Sueldo</b></h3>
-
           </div>
-
           <div class="card-body">
             <table id="listadorecibos" class="table table-bordered table-striped">
               <thead>
@@ -39,13 +37,10 @@
                 </td>
               </tr>
               @endforeach
-
               </tbody>
             </table>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>

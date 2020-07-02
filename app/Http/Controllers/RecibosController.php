@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Recibos;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use NumerosEnLetras;
 
 class RecibosController extends Controller
 {

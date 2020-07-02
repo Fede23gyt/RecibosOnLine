@@ -1,5 +1,50 @@
 [
     {
+        "name": "arielcr/numero-a-letras",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/arielcr/numero-a-letras.git",
+            "reference": "df3e5504b477059e290faecad3004ee79f4406a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/arielcr/numero-a-letras/zipball/df3e5504b477059e290faecad3004ee79f4406a4",
+            "reference": "df3e5504b477059e290faecad3004ee79f4406a4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "time": "2017-03-14T01:51:35+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "NumeroALetras": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ariel Orozco",
+                "email": "bassplayer85@gmail.com",
+                "homepage": "http://arielorozco.com"
+            }
+        ],
+        "description": "Convierte un número a su valor correspondiente en letras.",
+        "homepage": "https://github.com/arielcr/numero-a-letras",
+        "keywords": [
+            "convertir",
+            "letras",
+            "numero"
+        ]
+    },
+    {
         "name": "barryvdh/laravel-dompdf",
         "version": "v0.8.6",
         "version_normalized": "0.8.6.0",
@@ -5105,6 +5150,45 @@
         ],
         "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
         "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles"
+    },
+    {
+        "name": "villca/numeros-en-letras",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/villca/Numeros-en-Letras.git",
+            "reference": "15b78a2cec778f2ec9cc742656836ae43ca3ce5c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/villca/Numeros-en-Letras/zipball/15b78a2cec778f2ec9cc742656836ae43ca3ce5c",
+            "reference": "15b78a2cec778f2ec9cc742656836ae43ca3ce5c",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.3.3 || ^7.0"
+        },
+        "time": "2018-01-13T23:20:14+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "NumerosEnLetras": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jesus Villca",
+                "email": "24villca@gmail.com",
+                "homepage": "https://24villca.blogspot.com"
+            }
+        ],
+        "description": "Convierte cualquier número en letras con el valor correspondiente."
     },
     {
         "name": "vlucas/phpdotenv",

@@ -1,0 +1,12 @@
+Importar archivos de sueldo
+
+1) No importar la ultima columna
+2) Cambiar los "." por las "," menos en el campo NIVE
+3) Agregar 5 columnas al principio
+4)
+Col1 : Vacia (Tipo texto)
+Col2 : Ano Liq
+Col3 : Mes Liq
+Col4 : Tipo Liquidacion (ME=Mensual - 1º SAC  2º SAC)
+Col5 : DNI (usar formula =EXTRAE(AD2;4;8))
+

@@ -415,6 +415,17 @@ class ComposerStaticInitf1ac140aebc8b78decc1475767a6e569
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
             ),
         ),
+        'N' => 
+        array (
+            'NumerosEnLetras' => 
+            array (
+                0 => __DIR__ . '/..' . '/villca/numeros-en-letras/src',
+            ),
+            'NumeroALetras' => 
+            array (
+                0 => __DIR__ . '/..' . '/arielcr/numero-a-letras/src',
+            ),
+        ),
         'M' => 
         array (
             'Mockery' => 
@@ -2404,6 +2415,8 @@ class ComposerStaticInitf1ac140aebc8b78decc1475767a6e569
         'Monolog\\ResettableInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ResettableInterface.php',
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
+        'NumeroALetras' => __DIR__ . '/..' . '/arielcr/numero-a-letras/src/NumeroALetras.php',
+        'NumerosEnLetras' => __DIR__ . '/..' . '/villca/numeros-en-letras/src/NumerosEnLetras.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\Inspector' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/Inspector.php',

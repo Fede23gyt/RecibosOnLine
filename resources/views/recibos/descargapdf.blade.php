@@ -6,10 +6,10 @@ $lugar = " Salta, " . $mes[$datos->mes_liq - 1] . " de " . $datos->ano_liq;
 
 /* genero 2 arrays, uno para haberes y otro para descuentos */
 
-$haberes = array('Sueldo Basico', 'Antigüedad', 'DECRETO 5017-ART2 DECRETO 1285-ART4','AYUDA ADICIONAL',
+$haberes = array('SUELDO BASICO', 'ANTIGÜEDAD', 'DECRETO 5017-ART2 DECRETO 1285-ART4','AYUDA ADICIONAL',
                 'ADICIONAL REMUNERATIVO DTO.3719 DTO.735','EQUIPARACION DOCENTE','TRANSPORTE',
                 'ASIGNACION FAMILIAR');
-$impohab = array($datos->basico, $datos->anti, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
+$impohab = array($datos->basico, $datos->antiguedad, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
                  $datos->tran, $datos->asig);
 
 
@@ -705,8 +705,8 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
             font-size: 8pt;
             width: 100%;
             border-collapse: collapse;
-            margin-top: 2em;
-            margin-bottom: 2em;
+            margin-top: 0em;
+            margin-bottom: 0em;
         }
 
         table.change_order_items>tbody {
@@ -746,16 +746,17 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
             <table style="width: 100%;" class="header">
               <tr>
                 <td width="100%">
-                  <div class="page" style="font-size: 7pt">
+                  <div class="page" style="font-size: 8pt">
                     <table style="width: 100%;" class="header">
                       <tr>
-                        <td  width="100%"><h1 style="text-align: center">Colegio "José Manuel Estrada" (L-21)</h1></td>
+                          <td  width="100%"><h1 style="text-align: center">
+                            Colegio "José Manuel Estrada" (L-21)</h1></td>
                       </tr>
                       <tr align="center">
-                        <td  width="100%"><h1 style="text-align: center"></h1><strong>España 2251 - (4400) - Salta CUIT 30-54773365-3</strong></td>
+                          <td  width="100%"><h1 style="text-align: center"></h1><strong>España 2251 - (4400) - Salta CUIT 30-54773365-3</strong></td>
                       </tr>
                       <tr align="center">
-                        <td  width="100%"><h2 style="text-align: center"></h2><h2>Recibo de Sueldo</h2></td>
+                          <td  width="100%"><h2 style="text-align: center"></h2><h2>Recibo de Sueldo</h2></td>
                       </tr>
                     </table>
 
@@ -781,21 +782,83 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
 
                     <table class="change_order_items" width="100%">
                       <tbody>
-                        <tr>
-                          <td style="width: 60%"><strong>Descripcion de Concepto</strong></td>
-                          <td style="width: 20%"><strong>Remuneraciones</strong></td>
-                          <td style="width: 20%"><strong>Descuentos</strong></td>
+                        <tr style="background-color: #9c5a5a ">
+                          <td style="width: 60%" align="center"><strong>Descripcion de Concepto</strong></td>
+                          <td style="width: 20%" align="center"><strong>Remuneraciones</strong></td>
+                          <td style="width: 20%" align="center"><strong>Descuentos</strong></td>
                         </tr>
                       </tbody>
+                      <?php
+                      $cant_hab = count($haberes);
+                      $cant_des = count($descuentos);
+                      $tot_hab = 0;
+                      $tot_des = 0;
+                      $reng=0;
+                      //** MUESTRA CONCEPTOS DE HABERES
+                      for($i=0; $i<=$cant_hab - 1; $i++)
+                        {
+                          //dd($impohab[$i]);
+                          if ($impohab[$i] > 0)
+                            {
+                              $tot_hab = $tot_hab + $impohab[$i];
+                              $reng++;
+                              ?>
+                            <tr>
+                              <td style="width: 60%" align="left">{{ $haberes[$i] }}
+                                <?php //php $haberes[$i] ?>
+                              </td>
+                              <td style="width: 20%" align="right"><?php echo number_format($impohab[$i],2); ?></td>
+                              <td style="width: 20%"></td>
+                            </tr>
+                            <?php
+                            }
+                        }
 
+                        //** MUESTRA CONCEPTOS DE DESCUENTOS
+                      for($i=0; $i<=$cant_des - 1; $i++)
+                        {
+                          if ($impodes[$i] > 0)
+                            {
+                              $tot_des = $tot_des + $impodes[$i];
+                              $reng++;
+                              ?>
+                            <tr>
+                              <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
+                                <td style="width: 20%"></td>
+                                <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2); ?></td>
+                            </tr>
+                             <?php
+                            }
+                        }
+                      ?>
+                      @for($i= $reng; $i < 15; $i++)
+                        <tr>
+                          <td></td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                      @endfor
                     </table>
-
+                    <table style="width: 100%; font-size: 10pt;">
+                      <tr>
+                        <td style="width: 60%" align="right"><strong>SUBTOTAL</strong></td>
+                        <td style="width: 20%" align="right"><strong>{{ number_format($tot_hab,2) }}</strong></td>
+                        <td style="width: 20%" align="right"><strong>{{ number_format($tot_des,2) }}</strong></td>
+                      </tr>
+                    </table>
+                    <table lass="change_order_items" style="width: 100%; font-size: 10pt;">
+                      <tr>
+                        <td style="width: 60%" align="right"></td>
+                        <td style="width: 20%" align="right"><strong>TOTAL NETO</strong></td>
+                        <td style="width: 20%" align="right"><strong>{{ number_format($tot_hab - $tot_des,2)}}</strong></td>
+                      </tr>
+                    </table>
                   </div>
 
                   <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; font-size: 8pt;">
 
                     <tr>
-                      <td>NEXO INMOBILIARIA</td>
+                      <td>Son: </td>
                     </tr>
                   </table>
                 </td>
