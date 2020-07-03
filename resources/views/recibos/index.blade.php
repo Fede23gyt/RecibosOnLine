@@ -23,13 +23,18 @@
               </thead>
               <tbody>
               @foreach ($recibos as $recibos)
+              $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
+                        + $recibos->tran + $recibos->asig)) -
+                       ($recibos->jubi + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->segu + $recibos->vale +
+                       $recibos->emba + $recibos->sindi);
+
               <tr>
                 <td>{!! $recibos->nombre !!}</td>
                 <td align="center">{!! $recibos->dni !!}</td>
                 <td align="center">{!! $recibos->cargo !!}</td>
                 <td align="center">{!! $recibos->ano_liq !!}</td>
                 <td align="center">{!! $recibos->mes_liq !!}</td>
-                <td align="right">$&nbsp;{!! $recibos->liqu !!}</td>
+                <td align="right">$&nbsp;{!! $total !!}</td>
                 <td class="text-center py-0 align-middle">
                   <div class="btn-group btn-group-sm">
                   <a href="{{ route('descargar', $recibos->id)}}" class="btn btn-info"><i class="far fa-file-pdf"></i></a>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Recibos;
 
 class RegisterController extends Controller
 {
@@ -48,14 +49,25 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+      /*dd($data['dni']);*/
+      $usudni = Recibos::where('dni',$data['dni'])->get();
+      dd($usudni);
+
+      if (!$usudni) {
+        echo "fede no esta";
+      }
+      if ($usudni) {
+
+        $user = DB::table('users')->where('email',$email)->first();
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'dni'  => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+      }
     }
-
     /**
      * Create a new user instance after a valid registration.
      *

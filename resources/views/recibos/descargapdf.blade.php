@@ -47,6 +47,27 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
             margin: 0px;
             padding-top: 0px;
             font-size: 1em;
+
+        }
+        #watermark {
+          position: fixed;
+          bottom:   11cm;
+          left:     5.5cm;
+
+          width:    3.5cm;
+          height:   5cm;
+
+          z-index:  -1000;
+        }
+        #watermark2 {
+          position: fixed;
+          bottom:   25cm;
+          left:     1.5cm;
+
+          width:    2cm;
+          height:   3.11cm;
+
+          z-index:  -1000;
         }
 
         @media print {
@@ -720,6 +741,7 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
         table.change_order_items>tbody>tr>td {
             border-right: 1px solid black;
             padding: 0.5em;
+            height: 5px;
         }
 
         td.change_order_total_col {
@@ -738,8 +760,13 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
 <body>
 
 <div id="body">
-
-    <div id="content">
+  <div id="watermark">
+    <img src="Sello_recibo.png" height="100%" width="100%" />
+  </div>
+  <div id="watermark2">
+    <img src="Escudo_recibo.png" height="100%" width="100%" />
+  </div>
+  <div id="content">
       <table style="width: 80%;" class="header" border="1">
         <tr>
           <td>
@@ -782,7 +809,7 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
 
                     <table class="change_order_items" width="100%">
                       <tbody>
-                        <tr style="background-color: #9c5a5a ">
+                        <tr style="background-color: #e66554c5 ">
                           <td style="width: 60%" align="center"><strong>Descripcion de Concepto</strong></td>
                           <td style="width: 20%" align="center"><strong>Remuneraciones</strong></td>
                           <td style="width: 20%" align="center"><strong>Descuentos</strong></td>
@@ -831,6 +858,11 @@ $descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINI
                             }
                         }
                       ?>
+                      <tr>
+                        <td></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
                       @for($i= $reng; $i < 15; $i++)
                         <tr>
                           <td></td>
