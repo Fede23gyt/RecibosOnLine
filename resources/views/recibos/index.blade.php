@@ -23,10 +23,12 @@
               </thead>
               <tbody>
               @foreach ($recibos as $recibos)
-              $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
-                        + $recibos->tran + $recibos->asig)) -
+              <?php
+                $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
+                        + $recibos->tran + $recibos->asig) -
                        ($recibos->jubi + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->segu + $recibos->vale +
                        $recibos->emba + $recibos->sindi);
+              ?>
 
               <tr>
                 <td>{!! $recibos->nombre !!}</td>
