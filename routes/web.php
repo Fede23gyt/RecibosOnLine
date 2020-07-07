@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('password/change', 'Auth\UpdatePasswordController@showChangePasswordForm')->name('cambiar');
+Route::post('password/change', 'Auth\UpdatePasswordController@change')->name('actualizar_pwd');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 /* Creo las rutas para todos los metodos para el controlador Liquidaciones (Nombre-Controlador)
 Route::resource('recibos', 'RecibosController');*/

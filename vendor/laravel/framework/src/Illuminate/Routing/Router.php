@@ -1168,6 +1168,10 @@ class Router implements RegistrarContract, BindingRegistrar
         if ($options['verify'] ?? false) {
             $this->emailVerification();
         }
+        // Password Change Routes...
+        $this->get('password/change', 'Auth\UpdatePasswordController@showChangePasswordForm')->name('password.change');
+        $this->post('password/change', 'Auth\UpdatePasswordController@change')->name('password.change.post');
+
     }
 
     /**
