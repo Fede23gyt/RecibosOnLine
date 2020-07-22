@@ -1,79 +1,65 @@
-<!--@extends('layouts.app')-->
 @extends('themes.lte.layout')
 
+@section('contenido')
+<div class="row justify-content-center">
+  <br />
+  <div class="card card-info" style="width: 600px">
+    <div class="card-header" style="background-color: #86807dda">
+      <h3 class="card-title">Cambio de Contraseña</h3>
+    </div>
 
+    <form class="form-horizontal"  method="POST" action="{{ route('actualizar_pwd') }}">
+      <!-- MUESTRA ERRORES AL HACER EL POST -->
+      @if (count($errors) > 0)
+        <div class="alert alert-danger">
+          <ul>
+             @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+             @endforeach
+          </ul>
+        </div>
+      @endif
+      {{ csrf_field() }}
+      <div class="card-body">
+        {{-- Current password --}}
+        <div class="form-group row {{ $errors->has('current_password') ? ' has-error' : '' }}">
+          <label for="current_password" class="col-sm-4 col-form-label">Contraseña Actual</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="current_password" placeholder="Contraseña actual" required autofocus>
+            @if ($errors->has('current_password'))
+              <span class="help-block">
+                <strong>555{{ $errors->first('current_password') }}</strong>
+              </span>
+            @endif
+          </div>
+        </div>
+        {{-- New password --}}
+        <div class="form-group row {{ $errors->has('password') ? ' has-error' : '' }}">
+          <label for="password" class="col-sm-4 col-form-label">Contraseña Nueva</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="password" placeholder="Password" required>
+            @if ($errors->has('password'))
+              <span class="help-block">
+              <strong>{{ $errors->first('password') }}</strong>
+              </span>
+            @endif
+          </div>
+        </div>
+        {{-- Confirm new password --}}
+        <div class="form-group row">
+          <label for="password-confirm" class="col-sm-4 col-form-label">Confirmar Contraseña</label>
+          <div class="col-sm-7">
+            <input type="password" class="form-control" id="password-confirm" name="password_confirmation" required>
+          </div>
+        </div>
+      </div>
 
- @section('contenido')
-   <div class="container">
-     <div class="row;align:center">
-       <div class="col-md-8 col-md-offset-2">
-         <div class="panel panel-default">
+      <div class="card-footer">
+        <button type="submit" class="btn btn-info">Confirmar Cambios</button>
+      </div>
 
-           <div class="panel-body">
-             <form class="form-horizontal;align:center" method="POST" role="form" action="{{ route('actualizar_pwd') }}">
-               @if (count($errors) > 0)
-                 <div class="alert alert-danger">
-                   <ul>
-                     @foreach ($errors->all() as $error)
-                       <li>{{ $error }}</li>
-                     @endforeach
-                   </ul>
-                 </div>
-               @endif
-               {{ csrf_field() }}
-               {{-- Current password --}}
-               <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
-                 <label for="current_password" class="col-md-4 control-label">Contraseña Actual</label>
+    </form>
+  </div>
 
-                 <div class="col-md-6">
-                   <input id="current_password" type="password" class="form-control" name="current_password" required autofocus>
-
-                   @if ($errors->has('current_password'))
-                     <span class="help-block">
-                     <strong>{{ $errors->first('current_password') }}</strong>
-                   </span>
-                   @endif
-                 </div>
-               </div>
-
-               {{-- New password --}}
-               <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                 <label for="password" class="col-md-4 control-label">Contraseña</label>
-
-                 <div class="col-md-6">
-                   <input id="password" type="password" class="form-control" name="password" required>
-
-                   @if ($errors->has('password'))
-                     <span class="help-block">
-                     <strong>{{ $errors->first('password') }}</strong>
-                   </span>
-                   @endif
-                 </div>
-               </div>
-
-               {{-- Confirm new password --}}
-               <div class="form-group">
-                 <label for="password-confirm" class="col-md-4 control-label">Confirmar contraseña</label>
-
-                 <div class="col-md-6">
-                   <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                 </div>
-               </div>
-
-               {{-- Submit button --}}
-               <div class="form-group">
-                 <div class="col-md-6 col-md-offset-4">
-                   <button type="submit" class="btn btn-primary">
-                     Cambiar Contraseña
-                   </button>
-                 </div>
-               </div>
-
-             </form>
-           </div>
-
-         </div>
-       </div>
-     </div>
-   </div>
- @endsection
+</div>
+@endsection

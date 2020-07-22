@@ -14,12 +14,8 @@
     </ul>
     <!-- lado derecho del navbar -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="datos_usu" role="button"  aria-haspopup="true" aria-expanded="false" v-pre>
-          {{ Auth::user()->name }} <span class="caret"></span>
-        </a>
+      <li class="nav-item dropdown">{{ Auth::user()->name }}
       </li>
     </ul>
   </div>
 </nav>
-<!-- /.navbar -->

@@ -19,15 +19,13 @@
    //show form:
    public function showChangePasswordForm(Request $request, User $user)
    {
-     return view('auth.passwords.cambiar')->with(
-       ['user' => $user]
-     );
+     return view('auth.passwords.cambiar')->with(['user' => $user]);
    }
 
    public function change(Request $request)
    {
      //Get current user data:
-     //$user = auth()->user();
+     $user = auth()->user();
 
      //Validation:
      $this->validate($request, [

@@ -14,7 +14,8 @@
         </div>
         <div class="col-sm-8 text-center">
 
-          <div class="row"><h4 style="color:#a12a2a">COLEGIO</h4></div>
+          <div class="row"><h4 style="color:#a12a2a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbspCOLEGIO</h4></div>
           <div class="row"><h4 style="color:#a12a2a">JOSE MANUEL ESTRADA</h4></div>
         </div>
 
@@ -25,7 +26,7 @@
       <div class="card-body login-card-body">
         <form method="POST" action="{{ route('login') }}" >
           @csrf
-          <div class="input-group mb-83">
+          <div class="input-group mb-3">
             <input type="email" class="form-control @error('email') is-invalid @enderror"
               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email" id="email" >
               @error('email')

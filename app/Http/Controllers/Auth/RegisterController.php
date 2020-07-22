@@ -49,16 +49,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-      /*dd($data['dni']);*/
+
       $usudni = Recibos::where('dni',$data['dni'])->get();
-      dd($usudni);
 
       if (!$usudni) {
         echo "fede no esta";
       }
       if ($usudni) {
 
-        $user = DB::table('users')->where('email',$email)->first();
+        $user = User::where('dni',$data['dni'])->first();
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],

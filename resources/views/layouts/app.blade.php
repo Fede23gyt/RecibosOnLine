@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SI.G.RE.S. | Colegio José Manuel Estrada</title>
+    <title>SI.G.RE.SU. | Colegio José Manuel Estrada</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

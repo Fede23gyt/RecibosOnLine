@@ -8,12 +8,6 @@
       <!-- Tempusdominus Bootstrap 4 -->
       <script src="{{asset('assets/lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
-      <!--
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <title>Laravel y data en PDF | Rimorsoft Online</title>
-      -->
-
     </head>
     <body>
         <div class="container">
