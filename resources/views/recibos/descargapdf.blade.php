@@ -9,6 +9,7 @@ if ($datos->cargo == 'Maestza.') {
     $decre1 = "Decto. 1273";
     $des_gremio = 'S.O.E.M.E.';
     $adicional = "Presentismo";
+
 }
 else {
     $decre1 = "Decto. 1342 Art. 4";
@@ -79,18 +80,37 @@ switch ($datos->codi)
     case 126106:
         $des_obra = "O.S.T.E.P.";
         break;
+    default:
+        $des_obra = "";
     }
-$seg_vida = 2.4;
+
+if ($datos->segu > 0) {
+  $seg_vida = 2.4;
+}
+else {
+  $seg_vida = 0;
+}
+
 if ($datos->segu > 2.4) {
     $seguro = $datos->segu - 2.4;
 }
 else {
     $seguro = 0;
 }
+
+/* $concepto1 se refiere a la equiparacion docente, se da un solo caso que un maestranza tiene cargado en ese campo
+el titulo bajo el nombre Remuneracion Docente */
+if ($datos->cargo == 'Maestza.' and $datos->equi > 0) {
+  $concepto1 = "Remuneracion Docente";
+}
+else {
+  $concepto1 = "Equiparacion Docente";
+}
+
 /* genero 2 arrays, uno para haberes y otro para descuentos */
 
 $haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
-                'Dto.3719 Dto.735','Equiparacion Docente','Transporte', 'Asignacion Familiar');
+                'Dto.3719 Dto.735', $concepto1, 'Transporte', 'Asignacion Familiar');
 $impohab = array($datos->basico, $datos->antiguedad, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
                  $datos->tran, $datos->asig);
 
@@ -1068,12 +1088,13 @@ function num2letras($num, $fem = false, $dec = true) {
                       <tr>
                         <td style="width: 40%">Cargo: <strong>{{ $datos->cargo }}</strong></td>
                         <td style="width: 40%">Fecha Ingreso: <strong>{{ $datos->fecha_ingreso }}</strong></td>
-                        <td style="width: 20%">Periodo: <strong>{{ $datos->mes_liq }} - {{ $datos->ano_liq }}</strong></td>
-                      </tr>
+                        <!--<td style="width: 20%">Periodo: <strong>{{ $datos->mes_liq }} - {{ $datos->ano_liq }}</strong></td>-->
+                        <td style="width: 20%">
+                      </tr></td>
                     </table>
                     <table style="width: 100%; font-size: 8pt;">
                       <tr>
-                        <td style="width: 40%">Periodo Abonado: <strong>{{ $datos->cargo }}</strong></td>
+                        <td style="width: 40%">Periodo Abonado: <strong>{{ $datos->mes_liq }} - {{ $datos->ano_liq }}</strong></td>
                         <td style="width: 60%">Lugar y Fecha de pago: <strong>{{ $lugar }}</strong></td>
                       </tr>
                     </table>
