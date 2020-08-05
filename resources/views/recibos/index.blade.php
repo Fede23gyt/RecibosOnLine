@@ -24,10 +24,22 @@
               <tbody>
               @foreach ($recibos as $recibos)
               <?php
+                $jubilacion = round($recibos->jubi / 16 * 11, 2);
+                $inssjp = round($recibos->jubi / 16 * 3, 2);
+                $jubi2  = round($recibos->jubi / 16 * 2, 2);
+                if ($recibos->segu > 2.4) {
+                  $seguro = $recibos->segu - 2.4;
+                }
+                else {
+                    $seguro = 0;
+                }
+                $seg_vida = 2.4;
+
                 $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
                         + $recibos->tran + $recibos->asig) -
-                       ($recibos->jubi + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->segu + $recibos->vale +
-                       $recibos->emba + $recibos->sindi);
+                       ($jubilacion + $inssjp + $jubi2 + $seguro + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->vale +
+                       $recibos->emba + $recibos->sindi + $seg_vida);
+
               ?>
 
               <tr>

@@ -4,28 +4,121 @@ $mes = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Ag
             'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
 $lugar = " Salta, " . $mes[$datos->mes_liq - 1] . " de " . $datos->ano_liq;
 
+/* Realizo los calculos de haberes */
+if ($datos->cargo == 'Maestza.') {
+    $decre1 = "Decto. 1273";
+    $des_gremio = 'S.O.E.M.E.';
+    $adicional = "Presentismo";
+}
+else {
+    $decre1 = "Decto. 1342 Art. 4";
+    $des_gremio = 'S.A.D.O.P.';
+    $adicional  = 'Adicional M. Jardinera';
+}
+/* realizo los calculos de descuentos */
+$jubilacion = round($datos->jubi / 16 * 11, 2);
+$inssjp = round($datos->jubi / 16 * 3, 2);
+$jubi2  = round($datos->jubi / 16 * 2, 2);
+
+switch ($datos->codi)
+    {
+    case 500500:
+        $des_obra = "O.S.P.L.A.D.";
+        break;
+    case 106302:
+        $des_obra = "O.S.D.O.P.";
+        break;
+    case 119609:
+        $des_obra = "O.S.P.I.S.";
+        break;
+    case 121705:
+        $des_obra = "O.S.P.A.T.";
+        break;
+    case 111308:
+        $des_obra = "O.S.M.T.T.";
+        break;
+    case 118200:
+        $des_obra = "O.S.A.P.M.";
+        break;
+    case 112202:
+        $des_obra = "O.S.S.I.M.R.A.";
+        break;
+    case 115300:
+        $des_obra = "O.S.P.E.";
+        break;
+    case 126908:
+        $des_obra = "O.S.M.C.B.A.";
+        break;
+    case 116105:
+        $des_obra = "O.S.C.E.P.";
+        break;
+    case 120702:
+        $des_obra = "O.S.T.E.L.";
+        break;
+    case 119500:
+        $des_obra = "O.S.P.S.A.";
+        break;
+    case 3009:
+        $des_obra = "O.S.P.A.M.S.";
+        break;
+    case 400909:
+        $des_obra = "A.S.E.";
+        break;
+    case 2501:
+        $des_obra = "O.S.M.S.S.";
+        break;
+    case 122401:
+        $des_obra = "O.S.E.I.V.";
+        break;
+    case 111704:
+        $des_obra = "O.S.E.A.M.";
+        break;
+    case 100304:
+        $des_obra = "O.S.T.V.L.A.";
+        break;
+    case 126106:
+        $des_obra = "O.S.T.E.P.";
+        break;
+    }
+$seg_vida = 2.4;
+if ($datos->segu > 2.4) {
+    $seguro = $datos->segu - 2.4;
+}
+else {
+    $seguro = 0;
+}
 /* genero 2 arrays, uno para haberes y otro para descuentos */
 
-$haberes = array('SUELDO BASICO', 'ANTIGÜEDAD', 'DECRETO 5017-ART2 DECRETO 1285-ART4','AYUDA ADICIONAL',
-                'ADICIONAL REMUNERATIVO DTO.3719 DTO.735','EQUIPARACION DOCENTE','TRANSPORTE',
-                'ASIGNACION FAMILIAR');
+$haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
+                'Dto.3719 Dto.735','Equiparacion Docente','Transporte', 'Asignacion Familiar');
 $impohab = array($datos->basico, $datos->antiguedad, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
                  $datos->tran, $datos->asig);
 
-$descuentos = array('APORTE JUBILATORIO', 'APORTE OBRA SOCIAL', 'DIFERENCIA MINIMO OBRA SOCIAL',
-                 'CAJA COMPLEMENTARIA','SEGURO DE VIDA','ADELANTO DE SUELDO',
-                 'EMBARGO DE SUELDO','S.A.D.O.P.');
- $impodes = array($datos->jubi, $datos->obra, $datos->difm, $datos->caja, $datos->segu, $datos->vale,
-                  $datos->emba, $datos->sindi);
-/*!
-  @function num2letras ()
-  @abstract Dado un n?mero lo devuelve escrito.
-  @param $num number - N?mero a convertir.
-  @param $fem bool - Forma femenina (true) o no (false).
-  @param $dec bool - Con decimales (true) o no (false).
-  @result string - Devuelve el n?mero escrito en letra.
+$descuentos = array(
+                'Jubilación - 11% (Reparto)',
+                'I.N.S.S.J.P. - 3%',
+                'Jubilación Dcto.137/05 - 2%',
+                'Obra Social 3% - ' . $des_obra,
+                'Diferencia del minimo - Obra Social',
+                'Caja Complementaria',
+                'Seguro de vida',
+                'Seguro Adicional',
+                $des_gremio,
+                'Anticipo de Sueldo',
+                'Cuota Litis');
+$impodes = array($jubilacion,
+                $inssjp,
+                $jubi2,
+                $datos->obra,
+                $datos->difm,
+                $datos->caja,
+                $seg_vida,
+                $seguro,
+                $datos->sindi,
+                $datos->vale,
+                $datos->emba
+                );
 
-*/
 function num2letras($num, $fem = false, $dec = true) {
    $matuni[2]  = "dos";
    $matuni[3]  = "tres";
@@ -192,7 +285,7 @@ function num2letras($num, $fem = false, $dec = true) {
    }
    $tex = $neg . substr($tex, 1) . $fin;
    //Zi hack --> return ucfirst($tex);
-   $end_num=ucfirst($tex).' pesos '.$float[1].'/100 ';
+   $end_num=ucfirst($tex).' con '.$float[1].'/100 ';
    return $end_num;
 }
 ?>
@@ -1001,7 +1094,7 @@ function num2letras($num, $fem = false, $dec = true) {
                       $reng=0;
                       //** MUESTRA CONCEPTOS DE HABERES
                       for($i=0; $i<=$cant_hab - 1; $i++)
-                        {
+                      {
                           //dd($impohab[$i]);
                           if ($impohab[$i] > 0)
                             {
@@ -1017,9 +1110,9 @@ function num2letras($num, $fem = false, $dec = true) {
                             </tr>
                             <?php
                             }
-                        }
-
-                        //** MUESTRA CONCEPTOS DE DESCUENTOS
+                      }
+                      $totrem = ($tot_hab - $datos->asig);
+                      //** MUESTRA CONCEPTOS DE DESCUENTOS
                       for($i=0; $i<=$cant_des - 1; $i++)
                         {
                           if ($impodes[$i] > 0)
@@ -1041,13 +1134,18 @@ function num2letras($num, $fem = false, $dec = true) {
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                       </tr>
-                      @for($i= $reng; $i < 15; $i++)
+                      @for($i= $reng; $i < 14; $i++)
                         <tr>
                           <td></td>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                         </tr>
                       @endfor
+                      <tr>
+                        <td style="width: 60%" align="right"><strong>Total Remuerativo</strong></td>
+                        <td style="width: 20%" align="right"><strong>{{ number_format($totrem,2) }}</strong></td>
+                        <td></td>
+                      </tr>
                     </table>
                     <table style="width: 100%; font-size: 10pt;">
                       <tr>
@@ -1067,7 +1165,7 @@ function num2letras($num, $fem = false, $dec = true) {
 
                   <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; font-size: 8pt;">
                     <tr>
-                      <td>Son: {{ num2letras($tot_hab - $tot_des)}} pesos.</td>
+                      <td>Son Pesos: {{ num2letras($tot_hab - $tot_des)}}</td>
                     </tr>
                   </table>
                 </td>
@@ -1080,7 +1178,5 @@ function num2letras($num, $fem = false, $dec = true) {
       </table>
     </div>
 </div>
-
-
 </body>
 </html>
