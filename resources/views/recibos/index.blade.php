@@ -27,18 +27,36 @@
                 $jubilacion = round($recibos->jubi / 16 * 11, 2);
                 $inssjp = round($recibos->jubi / 16 * 3, 2);
                 $jubi2  = round($recibos->jubi / 16 * 2, 2);
+
+                if ($recibos->segu > 0) {
+                  $seg_vida = 2.4;
+                }
+                else {
+                  $seg_vida = 0;
+                }
+
                 if ($recibos->segu > 2.4) {
-                  $seguro = $recibos->segu - 2.4;
+                    $seguro = $recibos->segu - 2.4;
                 }
                 else {
                     $seguro = 0;
                 }
-                $seg_vida = 2.4;
+
 
                 $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
                         + $recibos->tran + $recibos->asig) -
                        ($jubilacion + $inssjp + $jubi2 + $seguro + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->vale +
                        $recibos->emba + $recibos->sindi + $seg_vida);
+
+                if ($recibos->tipo == 'SAC1') {
+                  $perio = "SAC 1º";
+                }
+                if ($recibos->tipo == 'SAC2') {
+                  $perio = "SAC 2º";
+                }
+                if ($recibos->tipo == 'ME') {
+                  $perio = $recibos->mes_liq;
+                }
 
               ?>
 
@@ -47,7 +65,8 @@
                 <td align="center">{!! $recibos->dni !!}</td>
                 <td align="center">{!! $recibos->cargo !!}</td>
                 <td align="center">{!! $recibos->ano_liq !!}</td>
-                <td align="center">{!! $recibos->mes_liq !!}</td>
+                <td align="center">{!! $perio !!}</td>
+                <!--<td align="center">{!! $recibos->mes_liq !!}</td>-->
                 <td align="right">$&nbsp;{!! $total !!}</td>
                 <td class="text-center py-0 align-middle">
                   <div class="btn-group btn-group-sm">

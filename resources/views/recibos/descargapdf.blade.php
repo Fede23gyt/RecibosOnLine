@@ -107,6 +107,15 @@ else {
   $concepto1 = "Equiparacion Docente";
 }
 
+if ($datos->tipo == 'SAC1') {
+  $perio = "SAC 1º" . " - " . $datos->ano_liq;
+}
+if ($datos->tipo == 'SAC2') {
+  $perio = "SAC 2º" . " - " . $datos->ano_liq;
+}
+if ($datos->tipo == 'ME') {
+  $perio = $datos->ano_liq . '-' . $datos->mes_liq;
+}
 /* genero 2 arrays, uno para haberes y otro para descuentos */
 
 $haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
@@ -1094,7 +1103,7 @@ function num2letras($num, $fem = false, $dec = true) {
                     </table>
                     <table style="width: 100%; font-size: 8pt;">
                       <tr>
-                        <td style="width: 40%">Periodo Abonado: <strong>{{ $datos->mes_liq }} - {{ $datos->ano_liq }}</strong></td>
+                        <td style="width: 40%">Periodo Abonado: <strong>{{ $perio }}</strong></td>
                         <td style="width: 60%">Lugar y Fecha de pago: <strong>{{ $lugar }}</strong></td>
                       </tr>
                     </table>
