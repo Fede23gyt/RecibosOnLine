@@ -41,12 +41,18 @@
                 else {
                     $seguro = 0;
                 }
-
+                // ATP NACIONAL ***SOLO LIQUIDACION MENSUAL ****
+                if ($recibos->mes_liq >= 9 and $recibos->ano_liq = 2020){
+                  $atp = $recibos->ext3;
+                }
+                else {
+                  $atp = 0;
+                }
 
                 $total = ($recibos->basico + $recibos->antiguedad + $recibos->sfre + $recibos->d158 + $recibos->perm + $recibos->equi
                         + $recibos->tran + $recibos->asig) -
                        ($jubilacion + $inssjp + $jubi2 + $seguro + $recibos->obra + $recibos->difm + $recibos->caja + $recibos->vale +
-                       $recibos->emba + $recibos->sindi + $seg_vida);
+                       $recibos->emba + $recibos->sindi + $seg_vida + $atp);
 
                 if ($recibos->tipo == 'SAC1') {
                   $perio = "SAC 1º";

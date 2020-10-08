@@ -134,7 +134,8 @@ $descuentos = array(
                 'Seguro Adicional',
                 $des_gremio,
                 'Anticipo de Sueldo',
-                'Cuota Litis');
+                'Cuota Litis' ,
+                'ATP Nacional');
 $impodes = array($jubilacion,
                 $inssjp,
                 $jubi2,
@@ -145,7 +146,8 @@ $impodes = array($jubilacion,
                 $seguro,
                 $datos->sindi,
                 $datos->vale,
-                $datos->emba
+                $datos->emba,
+                $datos->ext3
                 );
 
 function num2letras($num, $fem = false, $dec = true) {
@@ -1144,20 +1146,38 @@ function num2letras($num, $fem = false, $dec = true) {
                       $totrem = ($tot_hab - $datos->asig);
                       //** MUESTRA CONCEPTOS DE DESCUENTOS
                       for($i=0; $i<=$cant_des - 1; $i++)
-                        {
-                          if ($impodes[$i] > 0)
-                            {
-                              $tot_des = $tot_des + $impodes[$i];
-                              $reng++;
-                              ?>
+                      {
+                          //if ($datos->mes_liq < 9 and $datos->ano_liq <= 2020 and $i == 'ATP Nacional')
+                          //{
+                        if ($impodes[$i] > 0) {
+
+                          if ($i<>$cant_des - 1) {
+                            $tot_des = $tot_des + $impodes[$i];
+                            $reng++;
+                            ?>
                             <tr>
                               <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
                                 <td style="width: 20%"></td>
                                 <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2); ?></td>
                             </tr>
-                             <?php
+                          <?php
+                          }
+                          else {
+                            if ($datos->mes_liq >= 9 and $datos->ano_liq = 2020){
+                              $tot_des = $tot_des + $impodes[$i];
+                              $reng++;
+                              ?>
+                              <tr>
+                                <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
+                                <td style="width: 20%"></td>
+                                <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2);?></td>
+                              </tr>
+                            <?php
                             }
+
+                          }
                         }
+                      }
                       ?>
                       <tr>
                         <td></td>
