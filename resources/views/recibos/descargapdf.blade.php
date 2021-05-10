@@ -116,10 +116,21 @@ if ($datos->tipo == 'SAC2') {
 if ($datos->tipo == 'ME') {
   $perio = $datos->ano_liq . '-' . $datos->mes_liq;
 }
+if ($datos->tipo == 'DIF012021') {
+  $perio = $datos->ano_liq . '-' . $datos->mes_liq;
+}
+
 /* genero 2 arrays, uno para haberes y otro para descuentos */
 
+if ($datos->tipo == 'DIF012021') {
+  $haberes = array('Diferencia Diciembre', 'Diferencia SAC', 'Diferencia Enero', $adicional,
+                'Dto.3719 Dto.735', $concepto1, 'Transporte', 'Asignacion Familiar');
+
+}
+else{
 $haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
                 'Dto.3719 Dto.735', $concepto1, 'Transporte', 'Asignacion Familiar');
+}
 $impohab = array($datos->basico, $datos->antiguedad, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
                  $datos->tran, $datos->asig);
 
@@ -132,9 +143,10 @@ $descuentos = array(
                 'Caja Complementaria',
                 'Seguro de vida',
                 'Seguro Adicional',
-                $des_gremio,
+                 $des_gremio,
                 'Anticipo de Sueldo',
-                'Cuota Litis' ,
+                'Descuento por ajuste',
+                'Embargo',
                 'ATP Nacional');
 $impodes = array($jubilacion,
                 $inssjp,
@@ -146,6 +158,7 @@ $impodes = array($jubilacion,
                 $seguro,
                 $datos->sindi,
                 $datos->vale,
+                $datos->descuento,
                 $datos->emba,
                 $datos->ext3
                 );
@@ -1133,8 +1146,8 @@ function num2letras($num, $fem = false, $dec = true) {
                               $tot_hab = $tot_hab + $impohab[$i];
                               $reng++;
                               ?>
-                            <tr>
-                              <td style="width: 60%" align="left">{{ $haberes[$i] }}
+                            <tr style="height:10px">
+                              <td style="width: 60%; height:10px" align="left">{{ $haberes[$i] }}
                                 <?php //php $haberes[$i] ?>
                               </td>
                               <td style="width: 20%" align="right"><?php echo number_format($impohab[$i],2); ?></td>
@@ -1155,15 +1168,16 @@ function num2letras($num, $fem = false, $dec = true) {
                             $tot_des = $tot_des + $impodes[$i];
                             $reng++;
                             ?>
-                            <tr>
-                              <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
-                                <td style="width: 20%"></td>
-                                <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2); ?></td>
+                            <tr style="height:10px">
+                              <td style="width: 60%; height:10px" align="left">{{ $descuentos[$i] }}</td>
+                                <td style="width: 20%; height:10px"></td>
+                                <td style="width: 20%; height:10px" align="right"><?php echo number_format($impodes[$i],2); ?></td>
                             </tr>
                           <?php
                           }
                           else {
-                            if ($datos->mes_liq >= 9 and $datos->ano_liq = 2020){
+                            //if ($datos->mes_liq >= 9 and $datos->ano_liq = 2020){
+                            if ($datos->mes_liq >= 9 and $datos->mes_liq < 12 and $datos->ano_liq = 2020){
                               $tot_des = $tot_des + $impodes[$i];
                               $reng++;
                               ?>
