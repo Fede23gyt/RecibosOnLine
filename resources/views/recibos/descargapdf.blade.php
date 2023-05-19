@@ -1,20 +1,29 @@
 <?php
+
 /* deduzco datos de fecha */
 $mes = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
             'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
 $lugar = " Salta, " . $mes[$datos->mes_liq - 1] . " de " . $datos->ano_liq;
 
+$anio_liq = $datos->ano_liq;
+$mes_liqui = $datos->mes_liq;
+$tipo_liq = $datos->tipo;
+
 /* Realizo los calculos de haberes */
-if ($datos->cargo == 'Maestza.') {
+if ($datos->cargo == 'Maestza.' and ($datos->tipo <> 'SAC2' and $anio_liq <> 2022
+   and $mes_liqui <> 12))
+  {
     $decre1 = "Decto. 1273";
     $des_gremio = 'S.O.E.M.E.';
     $adicional = "Presentismo";
+    $ConceptoPerm = "Adelanto de Sueldo por Futuros Aumentos";
 
-}
+  }
 else {
     $decre1 = "Decto. 1342 Art. 4";
     $des_gremio = 'S.A.D.O.P.';
     $adicional  = 'Adicional M. Jardinera';
+    $ConceptoPerm = 'Dto.3719 Dto.735';
 }
 /* realizo los calculos de descuentos */
 $jubilacion = round($datos->jubi / 16 * 11, 2);
@@ -100,12 +109,64 @@ else {
 
 /* $concepto1 se refiere a la equiparacion docente, se da un solo caso que un maestranza tiene cargado en ese campo
 el titulo bajo el nombre Remuneracion Docente */
-if ($datos->cargo == 'Maestza.' and $datos->equi > 0) {
-  $concepto1 = "Remuneracion Docente";
+/* 09-09-2023 - Solo valida hasta peridod 2/2023*/
+if ($mes_liqui < 3 & $anio_liq <= 2022) {
+    if ($datos->cargo == 'Maestza.' and $datos->equi > 0) {
+        $concepto1 = "Remuneracion Docente";
+    }
+    else {
+
+        if($mes_liqui == 8 & $anio_liq == 2021){
+            $concepto1 = "Equip.Docente y diferencia de Julio";
+        }
+        if($mes_liqui == 3 & $anio_liq == 2022){
+            $concepto1 = "Diferencia Febrero";
+        }if($mes_liqui == 10 & $anio_liq == 2022){
+            $concepto1 = "Equip. Docente y diferencia de Septiembre";
+        }
+        if($mes_liqui == 1 & $anio_liq == 2023){
+            $concepto1 = "Diferencia de Diciembre 2022";
+        }
+        if($mes_liqui == 2 & $anio_liq == 2023){
+            $concepto1 = "Diferencia de Enero 2023";
+        }
+        if($mes_liqui == 3 & $anio_liq == 2023){
+            $concepto1 = "Diferencia de Febrero 2023";
+        }
+        else{
+            $concepto1 = "Equiparacion Docente";
+        }
+
+    }
+}else {
+    if ($datos->equi > 0) {
+
+        if($mes_liqui == 2 & $anio_liq == 2023){
+            $concepto1 = "Diferencia de Enero 2023";
+        }
+        if($mes_liqui == 3 & $anio_liq == 2023){
+            $concepto1 = "Diferencia de Febrero 2023";
+        }
+        else{
+            $concepto1 = "Equiparacion Docente";
+        }
+    }
+    else {
+      $concepto1 = "Equiparacion Docente";
+    }
+
 }
-else {
-  $concepto1 = "Equiparacion Docente";
+
+/* CUANDO SE LIQUIDAN VACACIONES, SOLO LLEVAN ESE UNICO CONCEPTO Y SE GRABA EN $CONCEPTO1
+CON LA CONDICION "Si el campo totr = 0 y Asig Distinto de 0, poner vacaciones."
+
+if($mes_liqui == 3 & $anio_liq == 2023){
+
+    if ($datos->total_rem == 0 and $datos->asig > 0){
+        $concepto1 = "Vacaciones";
+    }
 }
+*/
 
 if ($datos->tipo == 'SAC1') {
   $perio = "SAC 1º" . " - " . $datos->ano_liq;
@@ -124,15 +185,24 @@ if ($datos->tipo == 'DIF012021') {
 
 if ($datos->tipo == 'DIF012021') {
   $haberes = array('Diferencia Diciembre', 'Diferencia SAC', 'Diferencia Enero', $adicional,
-                'Dto.3719 Dto.735', $concepto1, 'Transporte', 'Asignacion Familiar');
+                    $ConceptoPerm, $concepto1, 'Transporte', 'Asignacion Familiar');
 
+  }
+  else{
+  $haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
+                    $ConceptoPerm, $concepto1, 'Transporte', 'Asignacion Familiar');
+  }
+
+/* Cambios 12-2021 VACACIONES */
+if ($datos->total_rem == 0) {
+  $haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
+                    $ConceptoPerm, $concepto1, 'Transporte', 'Vacaciones');
 }
-else{
-$haberes = array('Sueldo Basico', 'Antiguedad', $decre1, $adicional,
-                'Dto.3719 Dto.735', $concepto1, 'Transporte', 'Asignacion Familiar');
-}
+/* *************** */
+
 $impohab = array($datos->basico, $datos->antiguedad, $datos->sfre, $datos->d158, $datos->perm, $datos->equi,
                  $datos->tran, $datos->asig);
+
 
 $descuentos = array(
                 'Jubilación - 11% (Reparto)',
@@ -224,12 +294,18 @@ function num2letras($num, $fem = false, $dec = true) {
    $num=$float[0];
 
    $num = trim((string)@$num);
+
    if ($num[0] == '-') {
       $neg = 'menos ';
       $num = substr($num, 1);
    }else
       $neg = '';
-   while ($num[0] == '0') $num = substr($num, 1);
+
+   if ($num[0] != '0'){
+
+    while ($num[0] == '0') $num = substr($num, 1);
+
+    }
    if ($num[0] < '1' or $num[0] > 9) $num = '0' . $num;
    $zeros = true;
    $punt = false;
@@ -329,7 +405,14 @@ function num2letras($num, $fem = false, $dec = true) {
    }
    $tex = $neg . substr($tex, 1) . $fin;
    //Zi hack --> return ucfirst($tex);
-   $end_num=ucfirst($tex).' con '.$float[1].'/100 ';
+   //   $end_num=ucfirst($tex).' con '.$float[1].'/100 ';
+
+   if (array_key_exists(1, $float)) {
+    $end_num = ucfirst($tex).' con '.$float[1].'/100 ';
+   } else {
+    $end_num = ucfirst($tex).' con 00/100 ';
+   }
+
    return $end_num;
 }
 ?>
@@ -1137,31 +1220,31 @@ function num2letras($num, $fem = false, $dec = true) {
                       $tot_hab = 0;
                       $tot_des = 0;
                       $reng=0;
+
                       //** MUESTRA CONCEPTOS DE HABERES
                       for($i=0; $i<=$cant_hab - 1; $i++)
                       {
-                          //dd($impohab[$i]);
+
                           if ($impohab[$i] > 0)
                             {
                               $tot_hab = $tot_hab + $impohab[$i];
                               $reng++;
                               ?>
-                            <tr style="height:10px">
-                              <td style="width: 60%; height:10px" align="left">{{ $haberes[$i] }}
-                                <?php //php $haberes[$i] ?>
-                              </td>
-                              <td style="width: 20%" align="right"><?php echo number_format($impohab[$i],2); ?></td>
-                              <td style="width: 20%"></td>
-                            </tr>
+                              <tr style="height:10px">
+                                  <td style="width: 60%; height:10px" align="left">{{ $haberes[$i] }}
+                                    <?php //php $haberes[$i] ?>
+                                  </td>
+                                  <td style="width: 20%" align="right"><?php echo number_format($impohab[$i],2); ?></td>
+                                  <td style="width: 20%"></td>
+                                </tr>
                             <?php
                             }
                       }
                       $totrem = ($tot_hab - $datos->asig);
+
                       //** MUESTRA CONCEPTOS DE DESCUENTOS
                       for($i=0; $i<=$cant_des - 1; $i++)
                       {
-                          //if ($datos->mes_liq < 9 and $datos->ano_liq <= 2020 and $i == 'ATP Nacional')
-                          //{
                         if ($impodes[$i] > 0) {
 
                           if ($i<>$cant_des - 1) {
@@ -1175,25 +1258,46 @@ function num2letras($num, $fem = false, $dec = true) {
                             </tr>
                           <?php
                           }
-                          else {
-                            //if ($datos->mes_liq >= 9 and $datos->ano_liq = 2020){
-                            if ($datos->mes_liq >= 9 and $datos->mes_liq < 12 and $datos->ano_liq = 2020){
-                              $tot_des = $tot_des + $impodes[$i];
-                              $reng++;
-                              ?>
-                              <tr>
-                                <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
-                                <td style="width: 20%"></td>
-                                <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2);?></td>
-                              </tr>
-                            <?php
-                            }
+                          else{
+                            if (
+                                ($mes_liqui >= 9 and $mes_liqui < 12 and $anio_liq == 2020) || ($mes_liqui == 7 and $anio_liq == 2021)
+                                || ($mes_liqui == 10 and $anio_liq == 2021)){
+                                  $tot_des = $tot_des + $impodes[$i];
+                                  $reng++;
+                                  ?>
 
-                          }
+                                    <?php
+
+                                    if ((($anio_liq == 2021 and $mes_liqui == 7) || ($mes_liqui == 10 and $anio_liq == 2021)
+                                        || ($mes_liqui == 11 and $anio_liq == 2021) || ($mes_liqui == 12 and $anio_liq == 2021))
+                                        && (($anio_liq == 2021 and $tipo_liq != 'SAC1') || ($anio_liq == 2021 and $tipo_liq != 'SAC2'))
+                                        ){
+
+                                      ?>
+                                        <tr>
+                                        <td style="width: 60%" align="left">REPRO 2 (SUAF UHVI)</td>
+                                        <td style="width: 20%"></td>
+                                        <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2);?></td>
+                                        </tr>
+                                      <?php
+                                    }else{
+
+                                      ?>
+                                        <tr>
+                                        <td style="width: 60%" align="left">{{ $descuentos[$i] }}</td>
+                                        <td style="width: 20%"></td>
+                                        <td style="width: 20%" align="right"><?php echo number_format($impodes[$i],2);?></td>
+                                        </tr>
+                                      <?php
+                                    }
+                                    ?>
+                                    <?php
+                                  }
+                                }
+                              }
                         }
-                      }
-                      ?>
-                      <tr>
+                        ?>
+                        <tr>
                         <td></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -1206,7 +1310,7 @@ function num2letras($num, $fem = false, $dec = true) {
                         </tr>
                       @endfor
                       <tr>
-                        <td style="width: 60%" align="right"><strong>Total Remuerativo</strong></td>
+                        <td style="width: 60%" align="right"><strong>Total Remunerativo</strong></td>
                         <td style="width: 20%" align="right"><strong>{{ number_format($totrem,2) }}</strong></td>
                         <td></td>
                       </tr>
@@ -1229,7 +1333,8 @@ function num2letras($num, $fem = false, $dec = true) {
 
                   <table style="width: 100%; border-top: 1px solid black; border-bottom: 1px solid black; font-size: 8pt;">
                     <tr>
-                      <td>Son Pesos: {{ num2letras($tot_hab - $tot_des)}}</td>
+                      <td>Son Pesos: {{ num2letras(round($tot_hab,2) - round($tot_des,2))}}</td>
+                      {{-- <td>Son Pesos: {{ num2letras($tot_hab - $tot_des)}}</td> --}}
                     </tr>
                   </table>
                 </td>

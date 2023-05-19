@@ -18,8 +18,9 @@
           @php
             $usuario=Auth::user()->dni;
           @endphp
-
-          @if($usuario == '27059357' || $usuario='26031314' || $usuario='16000443') <!-- usuario admin -->
+          <!-- Gabriela 26031314 / Pedro 16000443 -->     
+          
+          @if ($usuario == '27059357' or $usuario=='26031314' or $usuario=='16000443') <!-- usuario admin -->
             <li class="nav-item">
               <a href="{{ route('recibos') }}" class="nav-link">
                 <i class="fas fa-folder-open"></i>

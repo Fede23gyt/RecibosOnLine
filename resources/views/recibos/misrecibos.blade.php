@@ -31,7 +31,7 @@
                 <td align="center">{!! $recibos->cargo !!}</td>
                 <td align="center">{!! $recibos->ano_liq !!}</td>
                 <td align="center">{!! $recibos->mes_liq !!}</td>
-                <td align="right">$&nbsp;{!! $recibos->liqu !!}</td>
+                <td align="right">$&nbsp;{!! number_format($recibos->liqu,2) !!}</td>
                 <td class="text-center py-0 align-middle">
                   <div class="btn-group btn-group-sm">
                   <a href="{{ route('descargar', $recibos->id)}}" class="btn btn-info"><i class="far fa-file-pdf"></i></a>
