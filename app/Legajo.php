@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Legajo extends Model
 {
   protected $table = 'legajos';
+  protected $fillable = ['numleg','apynom','numdoc','cuil','categoria','fecing'];
   public $timestamps = false;
 
 
@@ -15,8 +16,13 @@ class Legajo extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany
    */
-  public function liquixlegajo()
+  public function Legajoliquidaciones()
   {
-      return $this->hasMany('App\LiquidacionNueva', 'legajo_id', 'num_leg');
+      return $this->hasMany('App\LiquidacionNueva', 'numleg', 'numleg');
   }
+
+  public function usuario()
+{
+    return $this->belongsTo(User::class, 'numdoc', 'dni');
+}
 }

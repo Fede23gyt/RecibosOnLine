@@ -96,29 +96,31 @@
                 @endforeach
 
                 <!-- CARGA LIQUIDACIONES NUEVAS-->
+
                 @foreach ($recibos_nuevos as $recnew)
-                  <?php
-                   $nw_neto = $recnew->hab_rem + $recnew->hab_norem + $recnew->sala - $recnew->descu;
-                  ?>
-                  <tr>
-                    <td>{!! $recnew->nombre !!}</td>
-                    <td align="center">{!! $recnew->dni !!}</td>
-                    <td align="center">{!! $recnew->cargo !!}</td>
-                    <td align="center">{!! $recnew->ano_liq !!}</td>
-                    <td align="center">{!! $recnew !!}</td>
-                    <td align="right">$&nbsp;{!! number_format($total,2) !!}</td>
-                    <td class="text-center py-0 align-middle">
-                      <div class="btn-group btn-group-sm">
-                      <a href="{{ route('descargar', $recnew->id)}}" class="btn btn-info"><i class="far fa-file-pdf"></i></a>
-                      </div>
-                    </td>
-                  </tr>
+                  @foreach ( $recnew->Legajoliquidaciones as $deta_liq)
+                    @php
+                    $neto = $deta_liq->sum_hab_rem + $deta_liq->sum_habnorem - $deta_liq->sum_descu + $deta_liq->sum_salario;
+                    @endphp
 
+                    <tr>
+                      <td>{!! $recnew->apynom  !!}</td>
+                      <td align="center">{!! $recnew->numdoc  !!}</td>
+                      <td align="center">{!! $recnew->categoria  !!}</td>
+                      <td align="center">{{  $deta_liq->ano_liq  }}</td>
+                      <td align="center">{{  $deta_liq->mes_liq  }}</td>
+                      <td align="right">$&nbsp;{{  number_format($neto,2) }}</td>
+                      <td class="text-center py-0 align-middle">
+                        <div class="btn-group btn-group-sm">
+                          <a href="{{ route('descargar_nuevos', ['numleg' => $recnew->numleg, 'ano_liq' => $deta_liq->ano_liq, 'mes_liq' => $deta_liq->mes_liq,
+                            'tip_liq' => $deta_liq->tip_liq]) }}"
+                             class="btn btn-info"><i class="far fa-file-pdf"></i></a>
+                        </div>
+                      </td>
+                    </tr>
 
-
+                  @endforeach
                 @endforeach
-
-
               </tbody>
             </table>
           </div>

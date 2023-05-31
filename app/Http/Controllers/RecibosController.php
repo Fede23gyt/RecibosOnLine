@@ -8,7 +8,6 @@ use App\Legajo;
 //use App\Http\Controllers\Auth;
 use App\Recibos;
 use App\LiquidacionNueva;
-use App\Legajos;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use NumerosEnLetras;
@@ -17,23 +16,26 @@ class RecibosController extends Controller
 {
     public function index()
     {
-      $recibos_admin = Recibos::where('ano_liq','>=',2021)
+      $recibos_admin = Recibos::where('ano_liq','>=',2022)
                               ->where('mes_liq','>=',1)->get();
 
-      //$recibos_admin = Recibos::all();
 
-      $recibos_nuevos = Legajo->with('liquixlegajo')
+      $recibos_nuevos = Legajo::with(['Legajoliquidaciones' => function ($query) {
+        $query->select('numleg','ano_liq','mes_liq','tip_liq')
+            ->selectRaw('SUM(hab_rem) as sum_hab_rem')
+            ->selectRaw('SUM(hab_norem) as sum_hab_norem')
+            ->selectRaw('SUM(descu) as sum_descu')
+            ->selectRaw('SUM(salario) as sum_salario')
+            ->where('ano_liq', '>=',2023)
+            ->where('mes_liq', '>=', 4)
+            ->groupBy('numleg','ano_liq','mes_liq','tip_liq');
+            }])
+          ->select('apynom', 'numdoc', 'categoria','numleg')
+          ->get();
 
-      $recibos_nuevos = LiquidacionNueva::where('ano_liq','>=',2023)
-                                        ->where('mes_liq','>=',1)
-                                        ->with('liquixlegajo')->get();
 
 
-      /*
-      return view('recibos.index')->with('recibos_admin',$recibos_admin)
-            ->with('recibos_nuevos',$recibos_nuevos);
-      */
-            return view('recibos.index', compact('recibos_admin', 'recibos_nuevos'));
+      return view('recibos.index', compact('recibos_admin', 'recibos_nuevos'));
 
     }
 
@@ -49,22 +51,59 @@ class RecibosController extends Controller
     {
 
       $dni_usu = Auth::user()->dni;
+
       $recibos_usu = Recibos::where('dni',$dni_usu)
                       ->orderby('id','desc')
                       ->orderby('ano_liq','desc')
                       ->orderby('mes_liq','desc')
                     ->get();
 
-      $mis_recnew = LiquidacionNueva::with('liquixlegajo')
-        ->where('numdoc',$dni_usu)
+
+      $usuarioDni = Auth::user()->dni;
+
+      $legajo = Legajo::whereHas('usuario', function ($query) use ($usuarioDni) {
+              $query->where('numdoc', $usuarioDni);
+          })
+          ->select('apynom', 'numdoc', 'categoria', 'numleg')
+          ->first();
+
+      if ($legajo) {
+        $mis_recnew = $legajo->Legajoliquidaciones()
+              ->select('numleg', 'ano_liq', 'mes_liq', 'tip_liq')
+              ->selectRaw('SUM(hab_rem) as sum_hab_rem')
+              ->selectRaw('SUM(hab_norem) as sum_hab_norem')
+              ->selectRaw('SUM(descu) as sum_descu')
+              ->selectRaw('SUM(salario) as sum_salario')
+              ->where('ano_liq', '>=', 2023)
+              ->where('mes_liq', '>=', 4)
+              ->groupBy('numleg', 'ano_liq', 'mes_liq', 'tip_liq')
+              ->get();
+
+        return view('recibos.misrecibos', compact('recibos_usu', 'mis_recnew','legajo'));
+      } else {
+          // Manejar el caso en el que no se encuentra un legajo asociado al usuario
+      }
+    }
+
+    public function descargar_nuevos($numleg,$ano_liq,$mes_liq,$tip_liq)
+    {
+      $datos_leg = Legajo::where('numleg',$numleg)->first();
+
+
+      $datos_liq = LiquidacionNueva::where('numleg',$numleg)
+        ->where('ano_liq',$ano_liq)
+        ->where('mes_liq',$mes_liq)
+        ->where('tip_liq',$tip_liq)
+        ->orderBy('codigo','asc')
         ->get();
 
+      $pdf = \PDF::loadView('recibos.descargapdfnuevos',compact('datos_leg','datos_liq','ano_liq','mes_liq','tip_liq'));
 
-      return view('recibos.misrecibos', compact('$recibos_usu', '$mis_recnew'));
 
-      /* return view('recibos.misrecibos')->with('recibos_usu',$recibos_usu); */
-
+      //return view('recibos.descargapdfnuevos',compact('datos_leg','datos_liq','ano_liq','mes_liq','tip_liq'));
+      return $pdf->stream('ReciboSueldoN.pdf');
 
     }
+
 
 }

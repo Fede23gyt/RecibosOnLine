@@ -20,3 +20,6 @@ Route::resource('recibos', 'RecibosController');*/
 Route::get('/recibos','RecibosController@index')->name('recibos');
 Route::get('/misrecibos','RecibosController@misrecibos')->name('misrecibos');
 Route::get('/recibos/descargar-recibo/{id}', 'RecibosController@descargar')->name('descargar');
+
+
+Route::get('/recibos/descargar-nuevos/{numleg}/{ano_liq}/{mes_liq}/{tip_liq}', 'RecibosController@descargar_nuevos')->name('descargar_nuevos');
